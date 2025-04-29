@@ -7,10 +7,46 @@ from llm import generate_response
 from data import create_sample_evaluation_data
 from metrics import get_metrics_descriptions
 
+# --- 定数 --- (もしあれば)
+# ...
+
+# --- カスタムCSS ---
+CHAT_INPUT_BUTTON_CSS = """
+<style>
+/* Streamlitのデフォルトボタンクラスを探し、特定のコンテキストでスタイルを適用 */
+/* chat_input内のボタンに限定するのが理想だが、ここでは単純化 */
+div[data-testid="stChatInput"] button {
+    background-color: #FF4B4B; /* アクセントの赤 */
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem; /* Streamlitのデフォルトに合わせる */
+    border-radius: 0.5rem; /* Streamlitのデフォルトに合わせる */
+    transition: background-color 0.3s ease; /* ホバー効果用 */
+}
+
+div[data-testid="stChatInput"] button:hover {
+    background-color: #E03C3C; /* ホバー時の少し暗い赤 */
+    color: white; /* ホバー時も文字色は白 */
+}
+
+div[data-testid="stChatInput"] button:active {
+    background-color: #C03030; /* クリック時のさらに暗い赤 */
+    color: white;
+}
+
+/* 送信アイコンの色も変える場合 (オプション) */
+/* div[data-testid="stChatInput"] button svg {
+    fill: white;
+} */
+</style>
+"""
+
 # --- チャットページのUI ---
 def display_chat_page(pipe):
     """チャットページのUIを表示する"""
-    st.subheader("質問を入力してください")
+    st.markdown(CHAT_INPUT_BUTTON_CSS, unsafe_allow_html=True) # カスタムCSSを適用
+
+    st.subheader("💬 チャット")
     user_question = st.text_area("質問", key="question_input", height=100, value=st.session_state.get("current_question", ""))
     submit_button = st.button("質問を送信")
 

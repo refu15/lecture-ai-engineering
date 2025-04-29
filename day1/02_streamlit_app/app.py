@@ -13,6 +13,18 @@ from huggingface_hub import HfFolder
 # --- アプリケーション設定 ---
 st.set_page_config(page_title="Gemma Chatbot", layout="wide")
 
+# --- カスタムCSS ---
+SIDEBAR_TITLE_CSS = """
+<style>
+div[data-testid="stSidebar"] h1 {
+    color: #DC143C; /* アクセントの赤 (クリムゾンレッド) */
+    /* 必要であればフォントサイズなども調整 */
+    /* font-size: 28px; */
+}
+</style>
+"""
+st.markdown(SIDEBAR_TITLE_CSS, unsafe_allow_html=True)
+
 # --- 初期化処理 ---
 # NLTKデータのダウンロード（初回起動時など）
 metrics.initialize_nltk()
